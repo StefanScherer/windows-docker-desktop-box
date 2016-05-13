@@ -4,8 +4,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 $script = <<SCRIPT
-$link = "https://s3-us-west-1.amazonaws.com/app-beta-download/Docker.msi"
-$version = "2.0.1832"
+$link = "https://dyhfha9j6srsj.cloudfront.net/InstallDocker.msi"
+$version = "1.11.1-beta11"
 $msi = "C:\\Vagrant\\Docker-$version.msi"
 $desktop = "$env:USERPROFILE\\Desktop\\Docker-$version.msi"
 if (!(Test-Path $msi)) {
