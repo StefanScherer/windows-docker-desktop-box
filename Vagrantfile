@@ -4,13 +4,13 @@
 VAGRANTFILE_API_VERSION = "2"
 
 $script = <<SCRIPT
-$link = "https://dyhfha9j6srsj.cloudfront.net/InstallDocker.msi"
-$version = "1.11.1-beta11"
+$link = "https://download.docker.com/win/beta/InstallDocker.msi"
+$version = "1.11.2-beta15"
 $msi = "C:\\Vagrant\\Docker-$version.msi"
 $desktop = "$env:USERPROFILE\\Desktop\\Docker-$version.msi"
 if (!(Test-Path $msi)) {
   Write-Host "Downloading MSI to shared folder."
-  wget -out $msi $link
+  Invoke-WebRequest -OutFile $msi $link
 }
 Write-Host "Copying MSI to desktop."
 copy $msi $desktop
@@ -19,7 +19,8 @@ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRes
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "windows_10"
+#  config.vm.box = "windows_10"
+  config.vm.box = "opentable/win-8-pro-amd64-nocm"
   config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
 
   config.vm.communicator = "winrm"
