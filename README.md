@@ -10,7 +10,7 @@ On the desktop the MSI file appears after a while. It is also cached on the shar
 
 Beginning with Beta 26 you can switch between the Linux and Windows container engine.
 
-[switch](images/docker-for-winows-switch.gif)
+![switch](images/docker-for-winows-switch.gif)
 
 ## Getting started
 
