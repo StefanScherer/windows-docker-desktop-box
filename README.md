@@ -8,6 +8,10 @@ vagrant up
 
 On the desktop the MSI file appears after a while. It is also cached on the shared folder, so you can easily destroy and rebuild the Vagrant box again and again.
 
+Beginning with Beta 26 you can switch between the Linux and Windows container engine.
+
+[switch](images/docker-for-winows-switch.gif)
+
 ## Getting started
 
 https://docs.docker.com/docker-for-windows/
