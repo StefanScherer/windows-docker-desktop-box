@@ -20,3 +20,18 @@ https://docs.docker.com/docker-for-windows/
 ## Download the app
 
 https://download.docker.com/win/beta/InstallDocker.msi
+
+## Get the base box
+
+First register to [evaluate Windows 10](https://www.microsoft.com/de-de/evalcenter/evaluate-windows-10-enterprise), but you don't need to download the ISO manually.
+
+If you don't have the Vagrant `windows_10` base box you need to create it first with [Packer](https://packer.io). See my [packer-windows](https://github.com/StefanScherer/packer-windows) repo to build the base box.
+
+To build the base box you have to run these commands on your host machine:
+
+```
+git clone https://github.com/StefanScherer/packer-windows
+cd packer-windows
+packer build --only=vmware-iso windows_10.json
+vagrant box add windows_10 windows_10_vmware.box
+```
