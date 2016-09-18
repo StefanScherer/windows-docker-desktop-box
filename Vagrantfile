@@ -4,20 +4,20 @@
 VAGRANTFILE_API_VERSION = "2"
 
 $script = <<SCRIPT
-$link = "https://download.docker.com/win/beta/InstallDocker.msi"
-$version = "1.12.1-beta26"
-$msi = "C:\\Vagrant\\Docker-$version.msi"
-$desktop = "$env:USERPROFILE\\Desktop\\Docker-$version.msi"
-if (!(Test-Path $msi)) {
-  Write-Host "Downloading MSI to shared folder."
-  Invoke-WebRequest -OutFile $msi $link
-}
-Write-Host "Copying MSI to desktop."
-copy $msi $desktop
-Write-Host "Now double-click the MSI file."
+Write-Host "Enabling Hyper-V and Containers feature."
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
 SCRIPT
+
+$script2 = <<SCRIPT2
+$link = "https://download.docker.com/win/beta/InstallDocker.msi"
+$msi = "$env:TEMP\\InstallDocker.msi"
+Write-Host "Downloading Docker for Windows MSI."
+$wc = New-Object net.webclient; $wc.Downloadfile($link, $msi)
+Write-Host "Installing Docker for Windows MSI package."
+Start-Process msiexec.exe -ArgumentList "/i", $msi, "/quiet", "/norestart" -NoNewWindow -Wait
+Write-Host "Now double-click the 'Docker for Windows' icon."
+SCRIPT2
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "windows_10"
@@ -33,6 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "shell", inline: $script, privileged: false
   config.vm.provision "reload"
+  config.vm.provision "shell", inline: $script2, privileged: true, powershell_elevated_interactive: true
 
   ["vmware_fusion", "vmware_workstation"].each do |provider|
     config.vm.provider provider do |v, override|
