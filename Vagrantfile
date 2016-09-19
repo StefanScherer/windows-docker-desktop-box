@@ -53,4 +53,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.vmx["gui.lastPoweredViewMode"] = "fullscreen"
     v.enable_vmrun_ip_lookup = false
   end
+
+  if Vagrant.has_plugin?("vagrant-vcloud")
+    config.vm.provider :vcloud do |v, override|
+      v.vapp_prefix = "docker-windows-beta"
+      v.nested_hypervisor = true
+      v.memory = 4096
+      v.cpus = 2
+    end
+  end
 end
