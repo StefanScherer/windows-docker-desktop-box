@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   ["vmware_fusion", "vmware_workstation"].each do |provider|
     config.vm.provider provider do |v, override|
       v.gui = true
-      v.vmx["memsize"] = "4096"
+      v.vmx["memsize"] = "5120"
       v.vmx["numvcpus"] = "2"
       v.vmx["vhv.enable"] = "TRUE"
     end
