@@ -17,6 +17,12 @@ Beginning with Beta 26 you can switch between the Linux and Windows container en
 
 https://docs.docker.com/docker-for-windows/
 
+## Use Chocolatey
+
+```
+choco install -y docker-for-windows -pre
+```
+
 ## Download the app
 
 https://download.docker.com/win/beta/InstallDocker.msi
