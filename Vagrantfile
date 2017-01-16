@@ -10,8 +10,13 @@ Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
 SCRIPT
 
 $script2 = <<SCRIPT2
-iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-choco install -y docker-for-windows -pre
+$link = "https://download.docker.com/win/beta/InstallDocker.msi"
+$msi = "$env:TEMP\\InstallDocker.msi"
+Write-Host "Downloading Docker for Windows MSI."
+$wc = New-Object net.webclient; $wc.Downloadfile($link, $msi)
+Write-Host "Installing Docker for Windows MSI package."
+Start-Process msiexec.exe -ArgumentList "/i", $msi, "/quiet", "/norestart" -NoNewWindow -Wait
+Write-Host "Now double-click the 'Docker for Windows' icon."
 SCRIPT2
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
