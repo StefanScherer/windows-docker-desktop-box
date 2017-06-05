@@ -10,7 +10,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
 SCRIPT
 
 $script2 = <<SCRIPT2
-$link = "https://download.docker.com/win/beta/InstallDocker.msi"
+$link = "https://download.docker.com/win/edge/InstallDocker.msi"
 $msi = "$env:TEMP\\InstallDocker.msi"
 Write-Host "Downloading Docker for Windows MSI."
 $wc = New-Object net.webclient; $wc.Downloadfile($link, $msi)
@@ -56,7 +56,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   if Vagrant.has_plugin?("vagrant-vcloud")
     config.vm.provider :vcloud do |v, override|
-      v.vapp_prefix = "docker-windows-beta"
+      v.vapp_prefix = "docker-windows-edge"
       v.nested_hypervisor = true
       v.memory = 4096
       v.cpus = 2
