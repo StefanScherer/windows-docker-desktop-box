@@ -20,7 +20,7 @@ Write-Host "Now double-click the 'Docker for Windows' icon."
 SCRIPT2
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "windows_10"
+  config.vm.box = "StefanScherer/windows_10"
   config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
 
   config.vm.communicator = "winrm"
