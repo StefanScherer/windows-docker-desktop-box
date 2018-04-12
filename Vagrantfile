@@ -16,6 +16,7 @@ Write-Host "Downloading Docker for Windows MSI."
 $wc = New-Object net.webclient; $wc.Downloadfile($link, $msi)
 Write-Host "Installing Docker for Windows MSI package."
 Start-Process msiexec.exe -ArgumentList "/i", $msi, "/quiet", "/norestart" -NoNewWindow -Wait
+net localgroup "docker-users" $env:COMPUTERNAME\vagrant /add
 Write-Host "Now double-click the 'Docker for Windows' icon."
 SCRIPT2
 
