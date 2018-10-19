@@ -1,8 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-VAGRANTFILE_API_VERSION = "2"
-
 $script = <<SCRIPT
 Write-Host "Enabling Hyper-V and Containers feature."
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
@@ -10,17 +8,13 @@ Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
 SCRIPT
 
 $script2 = <<SCRIPT2
-$link = "https://download.docker.com/win/edge/InstallDocker.msi"
-$msi = "$env:TEMP\\InstallDocker.msi"
-Write-Host "Downloading Docker for Windows MSI."
-$wc = New-Object net.webclient; $wc.Downloadfile($link, $msi)
-Write-Host "Installing Docker for Windows MSI package."
-Start-Process msiexec.exe -ArgumentList "/i", $msi, "/quiet", "/norestart" -NoNewWindow -Wait
-net localgroup "docker-users" $env:COMPUTERNAME\vagrant /add
-Write-Host "Now double-click the 'Docker for Windows' icon."
+iwr -useb https://chocolatey.org/install.ps1 | iex
+choco install -y docker-for-windows --pre
+#net localgroup "docker-users" $env:COMPUTERNAME\\vagrant /add
+#Write-Host "Now double-click the 'Docker for Windows' icon."
 SCRIPT2
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+Vagrant.configure("2") do |config|
   config.vm.box = "StefanScherer/windows_10"
   config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
 
@@ -35,6 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", inline: $script, privileged: false
   config.vm.provision "reload"
   config.vm.provision "shell", inline: $script2, privileged: true, powershell_elevated_interactive: true
+  config.vm.provision "reload"
 
   ["vmware_fusion", "vmware_workstation"].each do |provider|
     config.vm.provider provider do |v, override|
