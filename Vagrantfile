@@ -9,9 +9,7 @@ SCRIPT
 
 $script2 = <<SCRIPT2
 iwr -useb https://chocolatey.org/install.ps1 | iex
-choco install -y docker-for-windows --pre
-#net localgroup "docker-users" $env:COMPUTERNAME\\vagrant /add
-#Write-Host "Now double-click the 'Docker for Windows' icon."
+choco install -y docker-desktop
 SCRIPT2
 
 Vagrant.configure("2") do |config|
