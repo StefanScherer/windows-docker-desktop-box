@@ -20,7 +20,7 @@ https://docs.docker.com/docker-for-windows/
 ## Use Chocolatey
 
 ```
-choco install -y docker-for-windows -pre
+choco install -y docker-desktop
 ```
 
 ## Download the app
