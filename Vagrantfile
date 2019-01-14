@@ -5,9 +5,11 @@ $script = <<SCRIPT
 Write-Host "Enabling Hyper-V and Containers feature."
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
+. sc.exe config winrm start= delayed-auto
 SCRIPT
 
 $script2 = <<SCRIPT2
+. sc.exe config winrm start= auto
 iwr -useb https://chocolatey.org/install.ps1 | iex
 choco install -y docker-desktop -pre -version 2.0.1.0-edge
 SCRIPT2
