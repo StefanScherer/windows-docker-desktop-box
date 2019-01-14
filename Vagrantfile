@@ -9,7 +9,7 @@ SCRIPT
 
 $script2 = <<SCRIPT2
 iwr -useb https://chocolatey.org/install.ps1 | iex
-choco install -y docker-desktop
+choco install -y docker-desktop -pre
 SCRIPT2
 
 Vagrant.configure("2") do |config|
