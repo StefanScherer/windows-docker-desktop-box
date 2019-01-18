@@ -9,35 +9,22 @@ vagrant up
 
 To start Docker Desktop wait until the desktop icon appears. Then double-click it.
 
-Beginning with Beta 26 you can switch between the Linux and Windows container engine.
+You can switch between the Linux and Windows containers.
 
 ![switch](images/docker-for-windows-switch.gif)
 
-## Getting started
+
+## Further links
+
+### Getting started
 
 https://docs.docker.com/docker-for-windows/
 
-## Use Chocolatey
+### Install using Chocolatey
 
 ```
 choco install -y docker-desktop
 ```
+### Download Docker Desktop
 
-## Download the app
-
-https://download.docker.com/win/edge/InstallDocker.msi
-
-## Get the base box
-
-First register to [evaluate Windows 10](https://www.microsoft.com/de-de/evalcenter/evaluate-windows-10-enterprise), but you don't need to download the ISO manually.
-
-If you don't have the Vagrant `windows_10` base box you need to create it first with [Packer](https://packer.io). See my [packer-windows](https://github.com/StefanScherer/packer-windows) repo to build the base box.
-
-To build the base box you have to run these commands on your host machine:
-
-```
-git clone https://github.com/StefanScherer/packer-windows
-cd packer-windows
-packer build --only=vmware-iso windows_10.json
-vagrant box add windows_10 windows_10_vmware.box
-```
+https://www.docker.com/products/docker-desktop
