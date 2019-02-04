@@ -34,8 +34,8 @@ Vagrant.configure("2") do |config|
   ["vmware_fusion", "vmware_workstation"].each do |provider|
     config.vm.provider provider do |v, override|
       v.gui = true
-      v.vmx["memsize"] = "5120"
-      v.vmx["numvcpus"] = "2"
+      v.memory = "5120"
+      v.cpus = "2"
       v.vmx["vhv.enable"] = "TRUE"
     end
   end
@@ -50,12 +50,10 @@ Vagrant.configure("2") do |config|
     v.enable_vmrun_ip_lookup = false
   end
 
-  if Vagrant.has_plugin?("vagrant-vcloud")
-    config.vm.provider :vcloud do |v, override|
-      v.vapp_prefix = "docker-windows-edge"
-      v.nested_hypervisor = true
-      v.memory = 4096
-      v.cpus = 2
-    end
+  config.vm.provider "virtualbox" do |v|
+    v.gui = true
+    v.memory = "5120"
+    v.cpus = "2"
+    v.linked_clone = true
   end
 end
